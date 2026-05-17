@@ -21,7 +21,7 @@ const itemVariants = {
     y: 0,
     transition: { duration: 0.6, ease: "easeOut" },
   },
-};
+} as const;
 
 const headingStyle = {
   fontFamily: '"Space Grotesk", var(--font-geist-sans), sans-serif',
