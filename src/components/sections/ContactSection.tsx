@@ -38,7 +38,9 @@ export default function ContactSection() {
         `&body=Name: ${values.name}%0D%0AEmail: ${values.email}` +
         `%0D%0A%0D%0AMessage:%0D%0A${values.message}`;
 
-      window.location.href = mailtoUrl;
+      const link = document.createElement("a");
+      link.href = mailtoUrl;
+      link.click();
       setStatus("success");
       reset();
     } catch (_error) {
