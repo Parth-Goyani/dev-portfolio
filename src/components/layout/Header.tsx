@@ -42,7 +42,9 @@ export default function Header({
         </Link>
         <div className="flex items-center gap-4">
           <Nav items={items} />
-          {actions ? <div className="flex items-center">{actions}</div> : null}
+          <div className="flex items-center gap-3">
+            {actions}
+          </div>
         </div>
       </div>
     </header>

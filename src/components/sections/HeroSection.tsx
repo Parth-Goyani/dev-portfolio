@@ -96,7 +96,7 @@ export default function HeroSection() {
               variant="secondary"
               onClick={handleEmail}
             >
-              Let's Collaborate
+              Let&apos;s Collaborate
             </Button>
           </motion.div>
 
