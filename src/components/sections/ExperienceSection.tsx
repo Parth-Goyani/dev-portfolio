@@ -23,11 +23,11 @@ export default function ExperienceSection() {
             Experience
           </p>
           <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-            Building products across fast-moving teams.
+            Engineering Impactful Solutions
           </h2>
           <p className="max-w-2xl text-base text-white/70">
-            A timeline of roles focused on crafting reliable interfaces, design
-            systems, and data-driven experiences.
+            A chronological look at my journey building automation systems,
+            predictive AI models, and optimizing data workflows.
           </p>
         </div>
 

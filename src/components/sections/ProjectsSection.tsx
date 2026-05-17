@@ -37,8 +37,9 @@ export default function ProjectsSection() {
             Featured work with measurable impact.
           </h2>
           <p className="max-w-2xl text-base text-white/70">
-            A selection of product initiatives spanning design systems, analytics
-            platforms, and content-rich experiences.
+            A curated collection of specialized systems spanning distributed AI
+            infrastructure, advanced analytical ecommerce engines, and optimized
+            runtime engines.
           </p>
         </div>
 
@@ -100,36 +101,61 @@ export default function ProjectsSection() {
                     <p className="mt-3 text-sm text-white/70">
                       {project.description}
                     </p>
-                    <p className="mt-4 text-sm text-white/60">
-                      {project.longDescription}
-                    </p>
-                    <div className="mt-5 flex flex-wrap gap-3 text-sm">
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/80 transition hover:border-white/30 hover:bg-white/10"
-                      >
-                        Live
-                        <ExternalLink className="h-3.5 w-3.5" />
-                      </a>
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/80 transition hover:border-white/30 hover:bg-white/10"
-                      >
-                        GitHub
-                        <svg
-                          viewBox="0 0 24 24"
-                          className="h-5 w-5"
-                          fill="currentColor"
-                          aria-hidden="true"
-                        >
-                          <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.19 6.839 9.504.5.092.682-.217.682-.483 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.467-1.11-1.467-.909-.62.069-.608.069-.608 1.003.07 1.531 1.033 1.531 1.033.892 1.53 2.341 1.088 2.91.833.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.987 1.029-2.686-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026a9.564 9.564 0 0 1 2.5-.336c.849.004 1.705.115 2.5.336 1.909-1.296 2.748-1.026 2.748-1.026.546 1.378.203 2.397.1 2.65.64.699 1.028 1.593 1.028 2.686 0 3.848-2.338 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.025 10.025 0 0 0 22 12.017C22 6.484 17.523 2 12 2z" />
-                        </svg>
-                      </a>
+                    <div className="mt-4 space-y-2 text-sm text-white/60">
+                      {project.longDescription
+                        .split("\n")
+                        .filter((line) => line.trim().length > 0)
+                        .map((line, lineIndex) => {
+                          const trimmed = line.trim();
+                          const isBullet = trimmed.startsWith("- ");
+                          const content = isBullet ? trimmed.slice(2) : trimmed;
+
+                          return isBullet ? (
+                            <div
+                              key={`${project.slug}-line-${lineIndex}`}
+                              className="flex gap-2"
+                            >
+                              <span className="mt-1 h-1.5 w-1.5 rounded-full bg-white/40" />
+                              <span>{content}</span>
+                            </div>
+                          ) : (
+                            <p key={`${project.slug}-line-${lineIndex}`}>{content}</p>
+                          );
+                        })}
                     </div>
+                    {project.liveUrl || project.githubUrl ? (
+                      <div className="mt-5 flex flex-wrap gap-3 text-sm">
+                        {project.liveUrl ? (
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/80 transition hover:border-white/30 hover:bg-white/10"
+                          >
+                            Live
+                            <ExternalLink className="h-3.5 w-3.5" />
+                          </a>
+                        ) : null}
+                        {project.githubUrl ? (
+                          <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/80 transition hover:border-white/30 hover:bg-white/10"
+                          >
+                            GitHub
+                            <svg
+                              viewBox="0 0 24 24"
+                              className="h-5 w-5"
+                              fill="currentColor"
+                              aria-hidden="true"
+                            >
+                              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.19 6.839 9.504.5.092.682-.217.682-.483 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.467-1.11-1.467-.909-.62.069-.608.069-.608 1.003.07 1.531 1.033 1.531 1.033.892 1.53 2.341 1.088 2.91.833.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.987 1.029-2.686-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026a9.564 9.564 0 0 1 2.5-.336c.849.004 1.705.115 2.5.336 1.909-1.296 2.748-1.026 2.748-1.026.546 1.378.203 2.397.1 2.65.64.699 1.028 1.593 1.028 2.686 0 3.848-2.338 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.025 10.025 0 0 0 22 12.017C22 6.484 17.523 2 12 2z" />
+                            </svg>
+                          </a>
+                        ) : null}
+                      </div>
+                    ) : null}
                   </div>
                 </Card>
               </motion.div>

@@ -35,9 +35,17 @@ export default function HeroSection() {
     }
   }, []);
 
+  const handleEmail = React.useCallback(() => {
+    const subject = "Inquiry: Python & AI/ML Engineering Opportunities";
+    const body = "Hi Parth,";
+    window.location.href =
+      `mailto:parthgoyani777@gmail.com?subject=${encodeURIComponent(subject)}` +
+      `&body=${encodeURIComponent(body)}`;
+  }, []);
+
   return (
     <section
-      id="hero"
+      id="home"
       className="relative overflow-hidden bg-[#0b0f14] text-white"
     >
       <div className="pointer-events-none absolute inset-0">
@@ -57,7 +65,7 @@ export default function HeroSection() {
             variants={itemVariants}
             className="inline-flex items-center gap-2 rounded-full border border-amber-300/30 bg-amber-300/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-amber-200"
           >
-            Available for select builds
+            Parth Goyani
           </motion.p>
 
           <motion.h1
@@ -65,16 +73,18 @@ export default function HeroSection() {
             style={headingStyle}
             className="mt-6 text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl"
           >
-            Designing and building digital products with cinematic clarity.
+            Designing and building intelligent automation systems with cinematic
+            clarity.
           </motion.h1>
 
           <motion.p
             variants={itemVariants}
             className="mt-5 text-lg text-white/70 sm:text-xl"
           >
-            I am a full stack engineer focused on expressive interfaces, accessible
-            systems, and resilient performance. I translate product vision into
-            immersive, production-ready experiences.
+            I am a Computer Science Engineer specializing in Artificial
+            Intelligence and Machine Learning. I focus on building scalable
+            Python applications, backend automation, machine learning models, and
+            workflow automation systems that improve operational efficiency.
           </motion.p>
 
           <motion.div
@@ -84,9 +94,9 @@ export default function HeroSection() {
             <Button onClick={() => handleScroll("projects")}>View Projects</Button>
             <Button
               variant="secondary"
-              onClick={() => handleScroll("contact")}
+              onClick={handleEmail}
             >
-              Let us Collaborate
+              Let's Collaborate
             </Button>
           </motion.div>
 
@@ -95,7 +105,7 @@ export default function HeroSection() {
             className="mt-8 flex items-center gap-4"
           >
             <a
-              href="https://github.com/your-handle"
+              href="https://github.com/Parth-Goyani"
               target="_blank"
               rel="noreferrer"
               className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/70 transition hover:border-white/30 hover:bg-white/10 hover:text-white"
@@ -111,7 +121,7 @@ export default function HeroSection() {
               </svg>
             </a>
             <a
-              href="https://linkedin.com/in/your-handle"
+              href="https://www.linkedin.com/in/parth-goyani-8b93213a7/"
               target="_blank"
               rel="noreferrer"
               className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/70 transition hover:border-white/30 hover:bg-white/10 hover:text-white"
@@ -140,16 +150,19 @@ export default function HeroSection() {
           <div className="mt-4 space-y-4">
             {[
               {
-                title: "Product Strategy",
-                detail: "Aligning vision, scope, and shipping cadence.",
+                title: "AI & Machine Learning",
+                detail:
+                  "Developing intelligent models, natural language processing solutions, and high-speed vector embedding pipelines.",
               },
               {
-                title: "Design Systems",
-                detail: "Reusable UI foundations with consistent motion.",
+                title: "Backend Automation",
+                detail:
+                  "Building scalable backend microservices, specialized data pipelines, and robust custom workflow automations.",
               },
               {
-                title: "Performance",
-                detail: "Optimized experiences that feel instantaneous.",
+                title: "Computer Vision",
+                detail:
+                  "Engineering low-latency face recognition infrastructures, object tracking, and edge-computed inference systems.",
               },
             ].map((item) => (
               <div
@@ -164,8 +177,8 @@ export default function HeroSection() {
             ))}
           </div>
           <div className="mt-6 rounded-2xl border border-amber-400/30 bg-amber-400/10 p-4 text-sm text-amber-100">
-            Currently partnering with product teams to refine onboarding,
-            storytelling, and growth experiments.
+            Currently looking to join innovative engineering teams to architect
+            scalable automation pipelines and production-grade intelligent systems.
           </div>
         </motion.div>
       </motion.div>

@@ -1,55 +1,5 @@
 import Card from "@/components/ui/Card";
 import { skillGroups } from "@/content/skills";
-import {
-  Accessibility,
-  Binary,
-  Boxes,
-  Cloud,
-  Code2,
-  Database,
-  Gauge,
-  GitBranch,
-  Layers,
-  LayoutGrid,
-  LineChart,
-  Lock,
-  Palette,
-  Server,
-  ShieldCheck,
-  Smartphone,
-  Sparkles,
-  TestTube2,
-  Type,
-  Webhook,
-  Wrench,
-  Workflow,
-  type LucideIcon,
-} from "lucide-react";
-
-const iconMap: Record<string, LucideIcon> = {
-  Accessibility,
-  Binary,
-  Boxes,
-  Cloud,
-  Code2,
-  Database,
-  Gauge,
-  GitBranch,
-  Layers,
-  LayoutGrid,
-  LineChart,
-  Lock,
-  Palette,
-  Server,
-  ShieldCheck,
-  Smartphone,
-  Sparkles,
-  TestTube2,
-  Type,
-  Webhook,
-  Wrench,
-  Workflow,
-};
 
 export default function SkillsSection() {
   return (
@@ -65,15 +15,15 @@ export default function SkillsSection() {
             Skills
           </p>
           <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-            Deep expertise across the modern stack.
+            Deep expertise across the intelligent automation stack.
           </h2>
           <p className="max-w-2xl text-base text-white/70">
-            I build product experiences end-to-end, from interface systems and
-            motion design to API contracts and deployment pipelines.
+            I build data pipelines, predictive models, and custom backend
+            automation frameworks from end-to-end.
           </p>
         </div>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+        <div className="mt-12 grid gap-6 lg:grid-cols-2">
           {skillGroups.map((group) => (
             <Card
               key={group.category}
@@ -84,46 +34,20 @@ export default function SkillsSection() {
                   {group.category}
                 </h3>
                 <span className="rounded-full border border-amber-300/30 bg-amber-300/10 px-3 py-1 text-xs text-amber-200">
-                  {group.skills.length} skills
+                  {group.tags.length} skills
                 </span>
               </div>
-              <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-                {group.skills.map((skill) => {
-                  const Icon = iconMap[skill.icon] ?? Code2;
-
-                  return (
-                    <div
-                      key={skill.name}
-                      className="rounded-2xl border border-white/10 bg-white/5 p-4"
+              <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-4">
+                <div className="flex flex-wrap gap-2">
+                  {group.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-amber-400/20 bg-amber-400/10 px-2 py-1 text-[10px] font-medium tracking-[0.2em] text-amber-100/80"
                     >
-                      <div className="flex items-start gap-3">
-                        <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-400/10 text-amber-200">
-                          <Icon className="h-4 w-4" />
-                        </span>
-                        <div>
-                          <p className="text-sm font-semibold text-white">
-                            {skill.name}
-                          </p>
-                          <p className="text-xs text-amber-100/70">
-                            {skill.level}
-                          </p>
-                        </div>
-                      </div>
-                      {skill.tags?.length ? (
-                        <div className="mt-3 flex flex-wrap gap-2">
-                          {skill.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="rounded-full border border-amber-400/20 bg-amber-400/10 px-2 py-1 text-[10px] font-medium uppercase tracking-[0.2em] text-amber-100/80"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      ) : null}
-                    </div>
-                  );
-                })}
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
             </Card>
           ))}

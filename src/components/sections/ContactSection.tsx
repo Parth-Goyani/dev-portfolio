@@ -1,12 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
-import { contactSchema, type ContactFormValues } from "@/lib/validators";
 
 const inputBaseStyles =
   "w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/30 transition focus:border-amber-300/40 focus:outline-none focus:ring-2 focus:ring-amber-300/20";
@@ -14,41 +11,74 @@ const inputBaseStyles =
 const errorStyles = "border-amber-300/70 focus:border-amber-300/70 focus:ring-amber-300/30";
 
 export default function ContactSection() {
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [message, setMessage] = React.useState("");
+  const [fieldErrors, setFieldErrors] = React.useState({
+    name: "",
+    email: "",
+    message: "",
+  });
   const [status, setStatus] = React.useState<"idle" | "success" | "error">(
     "idle"
   );
   const [submitError, setSubmitError] = React.useState<string | null>(null);
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors, isSubmitting },
-  } = useForm<ContactFormValues>({
-    resolver: zodResolver(contactSchema),
-    mode: "onBlur",
-  });
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
-  const onSubmit = async (values: ContactFormValues) => {
-    setStatus("idle");
-    setSubmitError(null);
+  const handleSubmit = React.useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      setStatus("idle");
+      setSubmitError(null);
 
-    try {
-      const mailtoUrl =
-        `mailto:parthgoyani777@gmail.com?subject=Portfolio Message from ${values.name}` +
-        `&body=Name: ${values.name}%0D%0AEmail: ${values.email}` +
-        `%0D%0A%0D%0AMessage:%0D%0A${values.message}`;
+      const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
-      const link = document.createElement("a");
-      link.href = mailtoUrl;
-      link.click();
-      setStatus("success");
-      reset();
-    } catch (_error) {
-      console.error(_error);
-      setStatus("error");
-      setSubmitError("Unable to open your email client. Please try again.");
-    }
-  };
+      const nextErrors = {
+        name: name.trim() ? "" : "Name is required.",
+        email: email.trim() ? "" : "Email is required.",
+        message: message.trim() ? "" : "Message is required.",
+      };
+
+      if (!nextErrors.email && !emailPattern.test(email.trim())) {
+        nextErrors.email = "Please enter a valid email address.";
+      }
+
+      setFieldErrors(nextErrors);
+
+      if (nextErrors.name || nextErrors.email || nextErrors.message) {
+        setStatus("error");
+        setSubmitError("Please complete all fields before sending.");
+        return;
+      }
+
+      setIsSubmitting(true);
+
+      try {
+        const subject = `Inquiry: Python & AI/ML Engineering Opportunities - ${name}`;
+        const body =
+          `Name: ${name}\r\n` +
+          `Email: ${email}\r\n\r\n` +
+          `Message:\r\n${message}`;
+        const mailtoUrl =
+          `mailto:parthgoyani777@gmail.com?subject=${encodeURIComponent(subject)}` +
+          `&body=${encodeURIComponent(body)}`;
+
+        window.location.href = mailtoUrl;
+        setStatus("success");
+        setName("");
+        setEmail("");
+        setMessage("");
+        setFieldErrors({ name: "", email: "", message: "" });
+      } catch (_error) {
+        console.error(_error);
+        setStatus("error");
+        setSubmitError("Unable to open your email client. Please try again.");
+      } finally {
+        setIsSubmitting(false);
+      }
+    },
+    [name, email, message]
+  );
 
   return (
     <section id="contact" className="relative bg-[#0b0f14] py-20 text-white">
@@ -67,31 +97,31 @@ export default function ContactSection() {
               Let us build something that feels effortless.
             </h2>
             <p className="mt-4 text-base text-white/70">
-              Tell me about the product, the timeline, and where you want the
-              experience to land. I will follow up with next steps and a tailored
-              approach.
+              Have an engineering challenge or a full-time opportunity? Drop your
+              details below to directly initiate a conversation.
             </p>
             <div className="mt-8 space-y-4">
               <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
                 <p className="text-sm font-semibold text-white">Email</p>
                 <a
-                  href="mailto:hello@devstudio.co"
+                  href="mailto:parthgoyani777@gmail.com"
                   className="text-sm text-amber-200"
                 >
-                  hello@devstudio.co
+                  parthgoyani777@gmail.com
                 </a>
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
                 <p className="text-sm font-semibold text-white">Availability</p>
                 <p className="text-sm text-white/60">
-                  Booking new product partnerships for Q3.
+                  Open to full-time opportunities in Python Development, AI/ML,
+                  and Backend Engineering.
                 </p>
               </div>
             </div>
           </div>
 
           <Card className="bg-[#0f141b]/80">
-            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <form onSubmit={handleSubmit} noValidate>
               <div className="space-y-5">
                 <div>
                   <label htmlFor="contact-name" className="text-xs uppercase tracking-[0.2em] text-white/60">
@@ -100,15 +130,25 @@ export default function ContactSection() {
                   <input
                     id="contact-name"
                     type="text"
-                    {...register("name")}
-                    aria-invalid={Boolean(errors.name)}
-                    aria-describedby={errors.name ? "contact-name-error" : undefined}
-                    className={`${inputBaseStyles} ${errors.name ? errorStyles : ""} mt-2`}
+                    value={name}
+                    onChange={(event) => {
+                      setName(event.target.value);
+                      if (status !== "idle") {
+                        setStatus("idle");
+                        setSubmitError(null);
+                      }
+                      if (fieldErrors.name) {
+                        setFieldErrors((prev) => ({ ...prev, name: "" }));
+                      }
+                    }}
+                    aria-invalid={Boolean(fieldErrors.name)}
+                    aria-describedby={fieldErrors.name ? "contact-name-error" : undefined}
+                    className={`${inputBaseStyles} ${fieldErrors.name ? errorStyles : ""} mt-2`}
                     placeholder="Your name"
                   />
-                  {errors.name ? (
+                  {fieldErrors.name ? (
                     <p id="contact-name-error" className="mt-2 text-xs text-amber-200">
-                      {errors.name.message}
+                      {fieldErrors.name}
                     </p>
                   ) : null}
                 </div>
@@ -120,15 +160,25 @@ export default function ContactSection() {
                   <input
                     id="contact-email"
                     type="email"
-                    {...register("email")}
-                    aria-invalid={Boolean(errors.email)}
-                    aria-describedby={errors.email ? "contact-email-error" : undefined}
-                    className={`${inputBaseStyles} ${errors.email ? errorStyles : ""} mt-2`}
+                    value={email}
+                    onChange={(event) => {
+                      setEmail(event.target.value);
+                      if (status !== "idle") {
+                        setStatus("idle");
+                        setSubmitError(null);
+                      }
+                      if (fieldErrors.email) {
+                        setFieldErrors((prev) => ({ ...prev, email: "" }));
+                      }
+                    }}
+                    aria-invalid={Boolean(fieldErrors.email)}
+                    aria-describedby={fieldErrors.email ? "contact-email-error" : undefined}
+                    className={`${inputBaseStyles} ${fieldErrors.email ? errorStyles : ""} mt-2`}
                     placeholder="you@email.com"
                   />
-                  {errors.email ? (
+                  {fieldErrors.email ? (
                     <p id="contact-email-error" className="mt-2 text-xs text-amber-200">
-                      {errors.email.message}
+                      {fieldErrors.email}
                     </p>
                   ) : null}
                 </div>
@@ -140,15 +190,25 @@ export default function ContactSection() {
                   <textarea
                     id="contact-message"
                     rows={5}
-                    {...register("message")}
-                    aria-invalid={Boolean(errors.message)}
-                    aria-describedby={errors.message ? "contact-message-error" : undefined}
-                    className={`${inputBaseStyles} ${errors.message ? errorStyles : ""} mt-2 resize-none`}
+                    value={message}
+                    onChange={(event) => {
+                      setMessage(event.target.value);
+                      if (status !== "idle") {
+                        setStatus("idle");
+                        setSubmitError(null);
+                      }
+                      if (fieldErrors.message) {
+                        setFieldErrors((prev) => ({ ...prev, message: "" }));
+                      }
+                    }}
+                    aria-invalid={Boolean(fieldErrors.message)}
+                    aria-describedby={fieldErrors.message ? "contact-message-error" : undefined}
+                    className={`${inputBaseStyles} ${fieldErrors.message ? errorStyles : ""} mt-2 resize-none`}
                     placeholder="Tell me about the project..."
                   />
-                  {errors.message ? (
+                  {fieldErrors.message ? (
                     <p id="contact-message-error" className="mt-2 text-xs text-amber-200">
-                      {errors.message.message}
+                      {fieldErrors.message}
                     </p>
                   ) : null}
                 </div>

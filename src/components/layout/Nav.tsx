@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx, { type ClassValue } from "clsx";
@@ -16,10 +17,11 @@ export type NavProps = {
 };
 
 const DEFAULT_ITEMS: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Work", href: "/work" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Home", href: "#home" },
+  { label: "Skills", href: "#skills" },
+  { label: "Experience", href: "#experience" },
+  { label: "Projects", href: "#projects" },
+  { label: "Contact", href: "#contact" },
 ];
 
 const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
@@ -34,6 +36,18 @@ const isActiveRoute = (pathname: string, href: string) => {
 
 export default function Nav({ items = DEFAULT_ITEMS, className }: NavProps) {
   const pathname = usePathname() ?? "/";
+  const handleAnchorClick = React.useCallback(
+    (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+      if (!href.startsWith("#")) return;
+      event.preventDefault();
+      const target = document.getElementById(href.slice(1));
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        history.replaceState(null, "", href);
+      }
+    },
+    []
+  );
 
   return (
     <nav aria-label="Primary" className={cn("flex items-center", className)}>
@@ -45,6 +59,7 @@ export default function Nav({ items = DEFAULT_ITEMS, className }: NavProps) {
             <li key={item.href}>
               <Link
                 href={item.href}
+                onClick={(event) => handleAnchorClick(event, item.href)}
                 aria-current={active ? "page" : undefined}
                 className={cn(
                   "relative inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200",

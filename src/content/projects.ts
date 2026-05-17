@@ -5,53 +5,60 @@ export type Project = {
   longDescription: string;
   thumbnail: string;
   tags: string[];
-  liveUrl: string;
-  githubUrl: string;
+  liveUrl: string | null;
+  githubUrl: string | null;
 };
 
 export const projects: Project[] = [
   {
-    slug: "aurora-portfolio",
-    title: "Aurora Portfolio",
-    description: "A cinematic portfolio experience with dynamic sections and motion-led storytelling.",
+    slug: "biometric-attendance-system",
+    title: "Distributed AI-Powered Biometric Attendance System",
+    description:
+      "A full-stack, edge-computed facial recognition attendance system featuring low-latency vector embeddings, offline resilience, and automatic background data synchronization.",
     longDescription:
-      "Aurora is a portfolio template focused on bold typography, ambient gradients, and smooth scroll storytelling. It includes reusable content sections, motion-safe animations, and a polished layout system designed for quick iteration.",
+      "Engineered a distributed Client-Server architecture utilizing:\n- Edge Client (Gate): Captures video feeds, executes real-time AI inference via InsightFace, and handles local data persistence with SQLite.\n- Vector Search Pipeline: Transforms face data into mathematical vectors, utilizing FAISS (Facebook AI Similarity Search) to perform ultra-low-latency matching on standard CPU hardware.\n- Offline Sync Protocol: Uses background multi-threading to continuously check local SQLite caches and automatically push logged data to the central server via REST API once network connectivity is restored.\n- Central Server (Admin): Aggregates telemetry via a Flask REST API wrapped in a Tkinter GUI dashboard, using Pandas to automatically format and deduplicate Excel attendance reports.",
     thumbnail: "/images/projects/aurora-portfolio.jpg",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    liveUrl: "https://example.com/aurora",
-    githubUrl: "https://github.com/your-handle/aurora-portfolio",
+    tags: [
+      "Python",
+      "OpenCV",
+      "InsightFace",
+      "FAISS",
+      "Flask",
+      "SQLite",
+      "Pandas",
+      "Tkinter",
+    ],
+    liveUrl: null,
+    githubUrl: "https://github.com/Parth-Goyani/AI-Powered-Biometric-Attendance-System",
   },
   {
-    slug: "cascade-crm",
-    title: "Cascade CRM",
-    description: "A client management platform with rich pipelines, smart filters, and reporting.",
+    slug: "designcarat-engine",
+    title: "DesignCarat Engine",
+    description:
+      "A high-conversion Single-Page Application e-commerce engine for premium digital assets, featuring a custom frictionless UPI checkout architecture and advanced marketing event tracking analytics.",
     longDescription:
-      "Cascade CRM streamlines sales workflows with configurable pipelines, activity timelines, and analytics dashboards. The system emphasizes fast data entry, inline editing, and validation-driven forms for reliable data capture.",
+      "Engineered a production-ready digital asset delivery application featuring:\n- Custom UPI Gateway Architecture: Built a zero-friction checkout flow executing dynamic QR code rendering, collecting UTR numbers via a Python backend, and routing users to automated WhatsApp verification flows.\n- Advanced Marketing Analytics: Injected Meta Pixel tracking with rich-data ecommerce telemetry (InitiateCheckout, Purchase) dynamically mapping product values to optimize ad-platform targeting and campaign ROAS.\n- Conversion-Rate Optimization (CRO) Core: Architected a mobile-first funnel using floating CTAs, infinite marquee asset displays, dynamic discount calculators, and safe analytics execution loops that prevent strict ad-blockers from disrupting checkout tasks.\n- Production DevOps: Provisioned end-to-end cloud infrastructure using Vercel, automated GitHub CI/CD pipelines, handled custom GoDaddy .in DNS routing, enforced SSL configurations, and structurally optimized SVG asset delivery.",
     thumbnail: "/images/projects/cascade-crm.jpg",
-    tags: ["React", "Next.js", "Zod", "React Hook Form"],
-    liveUrl: "https://example.com/cascade",
-    githubUrl: "https://github.com/your-handle/cascade-crm",
+    tags: ["React.js", "Python", "Vercel", "Meta Analytics", "UPI API", "UI/UX"],
+    liveUrl: "https://www.designcarat.in/",
+    githubUrl: null,
   },
   {
-    slug: "signalboard-analytics",
-    title: "Signalboard Analytics",
-    description: "A real-time product analytics suite with live KPI tiles and alerts.",
+    slug: "aerial-combat-engine",
+    title: "High-Performance 2D Aerial Combat Engine",
+    description:
+      "An intelligent game engine built using Unity and C#, featuring Finite State Machine (FSM) AI logic and highly optimized runtime gameplay monitoring tools.",
     longDescription:
-      "Signalboard provides live KPI tracking with custom alerting, retention funnels, and cohort views. The UI balances data density with clarity using layered cards, adaptive grids, and compact filters.",
+      "Engineered an interactive combat engine showcasing:\n- Finite State Machine (FSM) AI: Implemented deterministic decision-making logic for enemy aerial behaviors, pathfinding routines, and reactive combat states.\n- Performance Optimization: Profiled scripts and managed runtime allocations to ensure consistent rendering speeds and fluid frame timing under peak resource loads.\n- Custom Gameplay Tooling: Built an modular UI framework and a background monitoring console allowing developers to track frame rates, state changes, and combat telemetry in real time.",
     thumbnail: "/images/projects/signalboard-analytics.jpg",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Recharts"],
-    liveUrl: "https://example.com/signalboard",
-    githubUrl: "https://github.com/your-handle/signalboard-analytics",
-  },
-  {
-    slug: "nimbus-docs",
-    title: "Nimbus Docs",
-    description: "A documentation platform with MDX support, search, and versioned guides.",
-    longDescription:
-      "Nimbus Docs delivers structured documentation with MDX content, table of contents generation, and instant search. It is built to scale across teams with reusable content blocks and themeable layout primitives.",
-    thumbnail: "/images/projects/nimbus-docs.jpg",
-    tags: ["Next.js", "MDX", "TypeScript", "Contentlayer"],
-    liveUrl: "https://example.com/nimbus",
-    githubUrl: "https://github.com/your-handle/nimbus-docs",
+    tags: [
+      "Unity",
+      "C#",
+      "FSM AI",
+      "Game Mechanics",
+      "Performance Optimization",
+    ],
+    liveUrl: "",
+    githubUrl: "",
   },
 ];
