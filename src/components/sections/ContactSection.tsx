@@ -33,28 +33,18 @@ export default function ContactSection() {
     setSubmitError(null);
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
+      const mailtoUrl =
+        `mailto:parthgoyani777@gmail.com?subject=Portfolio Message from ${values.name}` +
+        `&body=Name: ${values.name}%0D%0AEmail: ${values.email}` +
+        `%0D%0A%0D%0AMessage:%0D%0A${values.message}`;
 
-      const data = await response.json().catch(() => null);
-
-      if (!response.ok) {
-        setStatus("error");
-        setSubmitError(
-          data?.message ?? "Something went wrong. Please try again."
-        );
-        return;
-      }
-
+      window.location.href = mailtoUrl;
       setStatus("success");
       reset();
     } catch (_error) {
       console.error(_error);
       setStatus("error");
-      setSubmitError("Network error. Please try again in a moment.");
+      setSubmitError("Unable to open your email client. Please try again.");
     }
   };
 
