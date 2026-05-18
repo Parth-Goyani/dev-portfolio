@@ -27,11 +27,11 @@ export default function Header({
         className
       )}
     >
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-4 md:flex-row md:items-center md:justify-between">
         <Link href="/" className="flex items-center gap-3 text-white">
           {brand ?? (
             <>
-              <span className="text-lg font-semibold tracking-tight">
+              <span className="hidden text-base font-semibold tracking-tight sm:inline sm:text-lg">
                 Dev Portfolio
               </span>
               <span className="hidden rounded-full border border-white/15 bg-white/10 px-2 py-1 text-[10px] uppercase tracking-[0.28em] text-white/70 sm:inline-flex">
@@ -40,11 +40,9 @@ export default function Header({
             </>
           )}
         </Link>
-        <div className="flex items-center gap-4">
+        <div className="flex w-full flex-col gap-3 md:w-auto md:flex-row md:items-center md:gap-4">
           <Nav items={items} />
-          <div className="flex items-center gap-3">
-            {actions}
-          </div>
+          <div className="flex items-center gap-3">{actions}</div>
         </div>
       </div>
     </header>
