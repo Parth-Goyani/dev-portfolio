@@ -22,7 +22,6 @@ export const experiences: Experience[] = [
     ],
     skillsUsed: [
       "Python",
-      "SQL",
       "NLP",
       "API Integration",
       "Automation",

@@ -10,14 +10,13 @@ export type SkillGroup = {
 export const skillGroups: SkillGroup[] = [
   {
     category: "Programming Languages",
-    tags: ["Python", "Java", "C", "C++", "SQL"],
+    tags: ["Python", "Java", "C", "C++"],
   },
   {
     category: "AI & Machine Learning",
     tags: [
       "Machine Learning",
       "NLP",
-      "Deep Learning",
       "TensorFlow",
       "Scikit-learn",
       "FAISS",
@@ -25,7 +24,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     category: "Backend & Databases",
-    tags: ["Flask", "REST APIs", "SQLite", "MySQL", "PHP"],
+    tags: ["Flask", "REST APIs", "SQLite", "PHP"],
   },
   {
     category: "Computer Vision & Tools",
