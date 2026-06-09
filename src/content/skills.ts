@@ -24,7 +24,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     category: "Backend & Databases",
-    tags: ["Flask", "REST APIs", "SQLite", "PHP"],
+    tags: ["Flask", "REST APIs", "SQLite"],
   },
   {
     category: "Computer Vision & Tools",
@@ -34,7 +34,6 @@ export const skillGroups: SkillGroup[] = [
       "MediaPipe",
       "Git",
       "GitHub",
-      "Power BI",
     ],
   },
 ];
